@@ -51,7 +51,7 @@ router.get('/regional', async (req, res) => {
             parseFloat(maxLat)
         ];
 
-        const startDate = start || "2024-01-01";
+        const startDate = start || "2015-01-01";
         const endDate = end || "2024-12-31";
 
         console.log(`Fetching regional NDVI for bbox: ${bbox}`);
