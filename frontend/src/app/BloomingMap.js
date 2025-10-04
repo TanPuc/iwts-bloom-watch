@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import "./map.css";
 
 // ⚠️ Replace this with your actual Mapbox access token
-mapboxgl.accessToken = "";
-export default function BloomingMap() {
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
+function BloomingMap() {
   const mapContainer = useRef(null);
   const mapRef = useRef(null);
 
@@ -33,6 +35,15 @@ export default function BloomingMap() {
 
     mapRef.current = map;
 
+    mapRef.current.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        useBrowserFocus: true,
+        mapboxgl: mapboxgl,
+      }),
+      "top-left"
+    );
+
     // Add markers
     regions.forEach((r) => {
       new mapboxgl.Marker({
@@ -57,9 +68,13 @@ export default function BloomingMap() {
     });
 
     return () => {
-      map.remove();
+      mapRef.current.remove();
     };
   }, []);
 
-  return <div ref={mapContainer} className="w-full h-screen" />;
+  return (
+    <div ref={mapContainer} className="w-full h-screen"/>
+  );
 }
+
+export default BloomingMap;

@@ -1,0 +1,8 @@
+.mapboxgl-ctrl-geocoder {
+  font-family: "Arial", sans-serif;
+  /* border: 4px solid #498467; */
+  border-radius: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  height: 40px;
+  width: 120px;
+}
